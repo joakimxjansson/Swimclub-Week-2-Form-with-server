@@ -1,4 +1,5 @@
 "use client";
+require('dotenv').config();
 import { useState } from "react";
 import { FaChild, FaSwimmer, FaWater } from "react-icons/fa";
 
@@ -31,7 +32,7 @@ export default function BookingForm() {
         e.preventDefault();
 
         // Server URL
-        const serverUrl = "http://localhost:5000/submit-form";
+        const serverUrl = process.env.NEXT_PUBLIC_SERVER_FORM_URL;
         const formBody = new URLSearchParams();
         formBody.append("name", formData.name);           // Namn
         formBody.append("email", formData.email);         // E-post
@@ -40,6 +41,7 @@ export default function BookingForm() {
 
         try {
             // Send the data to your server
+            // @ts-ignore
             const response = await fetch(serverUrl, {
                 method: "POST",
                 headers: {
